@@ -1,1 +1,1 @@
-{"Users":{"values":[{"name":"jean","pwd":"1234","id":1},{"name":"Henry","pwd":"1234","id":1}],"lastId":2},"Lists":{"values":[{"name":"laver quoi","value":true,"user_id":1,"id":2},{"name":"apprendre","value":"","user_id":1,"id":2}],"lastId":3}}
+{"Users":{"values":[{"name":"jean","pwd":"1234","id":1},{"name":"hugo","pwd":"hugo","id":26}],"lastId":27},"Lists":{"values":[{"name":"laver quoi","value":true,"user_id":1,"id":2},{"name":"jouer","value":"1","user_id":26,"id":12},{"name":"mourrir","value":"1","user_id":26,"id":14}],"lastId":15}}

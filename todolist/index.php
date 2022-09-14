@@ -38,14 +38,17 @@ if($_SERVER["REQUEST_METHOD"] =="POST"){
 </head>
 <body>
     <button id="deco">Déconnexion</button>
+    <a href="./dashboard.php">Dashboard</a>
     <h2>Mon compte</h2>
     <div>
-        <label for="">Ajouter</label>
-        <input type="text" id="task">
-        <input type="checkbox" id="check">
+        <label for="">Ajouter une tâche</label><br/>
+        <input type="text" id="task"><br/>
+        <label id="label">à faire</label><br/>
+        <input type="checkbox" id="check"><br/>
         <button id="add">Ajouter</button>
-        <div id="result"></div>
+        <div id="result" style="color: green"></div><br/><br/>
 </div>
+<hr/>
 <label for="">Modifier</label>
 <div class="todos">
     {$ht}
@@ -53,7 +56,8 @@ if($_SERVER["REQUEST_METHOD"] =="POST"){
 </div>
 
     <script>
-        let result = document.querySelector("result");
+        let result = document.querySelector("#result");
+        
         function getCookie(name) {
             let c = document.cookie;
             console.log(c);
@@ -64,9 +68,10 @@ if($_SERVER["REQUEST_METHOD"] =="POST"){
         console.log(cookies);
         let deco = document.querySelector("#deco");
         deco.addEventListener("click", ()=>{
+    document.cookie.split(";").forEach(function(c) { document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/"); });
             window.location.href = "./";
         })
-
+        let label = document.querySelector("#label");
         let but = document.querySelector("#add");
         let taskDOM = document.querySelector("#task");
         let checkDOM = document.querySelector("#check");
@@ -77,18 +82,23 @@ if($_SERVER["REQUEST_METHOD"] =="POST"){
         checkDOM.addEventListener("input",(e)=>{
             check = e.target.checked;
             console.log(e.target.checked);
+            if(e.target.checked == true){
+                label.innerHTML = "fait";
+            }else{
+                label.innerHTML = "à faire";
+            }
         })
 
         but.addEventListener("click", ()=>{
             console.log("send");
             if(task.length >1){
                 fetch("./dbUtils/addTask.php", {method: "POST", headers: {'Accept': "application/json", 'Content-Type': "application/json"}, body: JSON.stringify({name: task, check: check, user_id:cookies[0].auth.id })})
-                .then(e=>e.text())
+                .then(e=>e.json())
                 .then(e=>{
                     console.log("send"+e);
                     if(e.message ==true){
                        result.innerHTML = "Votre tâche a bien été ajoutée";
-                       setTimeout(()=>{result.innerHTML= ""}, 1000);
+                       setTimeout(()=>{result.innerHTML= ""; window.location.reload()}, 500);
                     }
                 })
             }

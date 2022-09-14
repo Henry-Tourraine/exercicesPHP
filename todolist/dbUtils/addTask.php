@@ -26,7 +26,7 @@ function addTask($name, $user_id, $check){
 
 
 if($_SERVER["REQUEST_METHOD"] =="POST"){
-    echo "addTask";
+    
     $params = json_decode(file_get_contents("php://input"));
     if(property_exists($params, "name") && property_exists($params, "user_id") && property_exists($params, "check")){
         echo addTask($params->name, $params->user_id, $params->check);

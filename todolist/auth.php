@@ -35,11 +35,11 @@
         button.addEventListener("click", ()=>{
             if(pwd !== undefined && name !== undefined && name.length > 2 && pwd.length > 2){
                 fetch("./dbUtils/signin.php", {method: "POST", headers: {'Accept': "application/json", 'Content-Type': "application/json"}, body: JSON.stringify({name: name, pwd: pwd, table: "Users"})})
-                .then(e=>e.text())
+                .then(e=>e.json())
                 .then(e=>{
                     console.log(e);
                     if(e.message ==true){
-                        alert("Vous vous êtes inscrit !");
+                        alert("Vous vous êtes connecté !");
                         window.location.href = "./";
                     }
                 })

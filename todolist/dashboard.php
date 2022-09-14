@@ -1,5 +1,9 @@
+<?php
+if(!isset($_COOKIE["infos"])){
+    header("Location: ./");
+}
 
-<!DOCTYPE html>
+?><!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -32,24 +36,27 @@
     //var_dump($users);
     function f($id){
         global $users;
+
         forEach($users as $user){
             if($user['id'] == $id){
                 return $user;
             }
-            return false;
+           
         }
+        return false;
     }
     echo "<div class='todosWrapper'>";
-
+   
 
     forEach($list as $l){
         $u = f($l["user_id"]);
-     
+
+  
         if($u !==false){
             $c= $l["value"]?"checked":"";
             echo "<div class='todos'>";
             echo "<br/> user: ".$u["name"];
-            echo "<div> tâche: {$l['name']} </div> <input type='checkbox' {$c}/>";
+            echo "<div> tâche: {$l['name']} <br/>état: ".($c?"fait":"àfaire")."</div>";
             echo "</div>";
         }
       
